@@ -58,7 +58,7 @@ namespace Smartwyre.DeveloperTest.Runner
                             }
                             crr.Volume = volume;
 
-                            IRebateService rebateService = new RebateService();
+                            IRebateService rebateService = new RebateService(rds, pds);
                             CalculateRebateResult result = rebateService.Calculate(crr);
 
                             if (result.Success)

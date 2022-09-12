@@ -11,17 +11,17 @@ namespace Smartwyre.DeveloperTest.Tests;
 public class PaymentServiceTests
 {
 
-   
+    ProductDataStore pds = new();
+    RebateDataStore rds = new();
 
-    
-    // Get Product Method Testing()
+   // Get Product Method Testing()
 
-    [Fact]
-    [TestMethod]
+   [Fact]
+   [TestMethod]
     public void GetProduct_ValidIdentifier_ReturnsProduct()
     {
         // Arrange
-        var target = new ProductDataStore(); // Replace YourClassName with the actual class containing the GetProduct method
+       ; // Replace YourClassName with the actual class containing the GetProduct method
         var expectedProduct = new Product
         {
             Identifier = "86d8eb1d-1c7c-4d76-897e-feb72a7793ea              ",
@@ -31,7 +31,7 @@ public class PaymentServiceTests
         };
 
         // Act
-        var actualProduct = target.GetProduct("86d8eb1d-1c7c-4d76-897e-feb72a7793ea              ");
+        var actualProduct = pds.GetProduct("86d8eb1d-1c7c-4d76-897e-feb72a7793ea              ");
 
         // Assert
         Assert.AreEqual(expectedProduct.Identifier, actualProduct.Identifier);
@@ -44,11 +44,9 @@ public class PaymentServiceTests
     [Fact]
     public void GetProduct_InvalidIdentifier_ReturnsNull()
     {
-        // Arrange
-        var target = new ProductDataStore(); // Replace ProductDataStore with the actual class containing the GetProduct method
 
         // Act
-        var actualProduct = target.GetProduct("86d8eb1d-1c7c-4d76-897e-feb7657862a7793ea");
+        var actualProduct = pds.GetProduct("86d8eb1d-1c7c-4d76-897e-feb7657862a7793ea");
 
         // Assert
         Assert.IsNull(actualProduct);
@@ -60,8 +58,7 @@ public class PaymentServiceTests
     public void GetRebate_ExistingRebate_ReturnsRebateObject()
     {
         // Arrange
-        var target = new RebateDataStore(); // Replace YourClassName with the actual class containing the GetProduct method
-        var actualRebate = target.GetRebate("b54f02f7-8005-459d-b494-017e9a094f80              ");
+        var actualRebate = rds.GetRebate("b54f02f7-8005-459d-b494-017e9a094f80              ");
         var expectedRebate = new Rebate
         {
             Identifier = "b54f02f7-8005-459d-b494-017e9a094f80              ",
@@ -84,10 +81,10 @@ public class PaymentServiceTests
     public void GetRebate_NonExistingRebate_ReturnsNull()
     {
         // Arrange
-        var target = new RebateDataStore(); // Replace RebateDataStore with the actual class containing the GetRebate method
+       
 
         // Act
-        var actualRebate = target.GetRebate("86d8eb1d-1c7c-4d76-897e-feb7657862a7793ea");
+        var actualRebate = rds.GetRebate("86d8eb1d-1c7c-4d76-897e-feb7657862a7793ea");
 
         // Assert
         Assert.IsNull(actualRebate);
@@ -101,7 +98,7 @@ public class PaymentServiceTests
     public void CalculateRebateResult_Caluculation()
     {
         // Arrange
-        IRebateService target = new RebateService(); // Replace YourClassName with the actual class containing the RebateService method
+        IRebateService target = new RebateService(rds,pds); // Replace YourClassName with the actual class containing the RebateService method
         var expectedRebate = new CalculateRebateRequest
         {
             ProductIdentifier = "86d8eb1d-1c7c-4d76-897e-feb72a7793ea              ",
@@ -121,7 +118,7 @@ public class PaymentServiceTests
     public void CalculateRebateResult_InvalidCaluculation()
     {
         // Arrange
-        IRebateService target = new RebateService(); // Replace YourClassName with the actual class containing the RebateService method
+        IRebateService target = new RebateService(rds,pds); // Replace YourClassName with the actual class containing the RebateService method
         var expectedRebate = new CalculateRebateRequest
         {
             ProductIdentifier = "86d8eb1d-1c7c-4d76-897e-feb72a7793ea              ",
